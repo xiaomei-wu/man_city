@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 import McityLogo from '../../Resources/images/logos/manchester_city_logo.png';
+import { firebase } from '../../firebase';
 
 export const CityLogo = ({ width, height, link, linkTo }) => {
   const template = (
@@ -31,4 +32,16 @@ export const showToastError = msg => {
 
 export const showToastSuccess = msg => {
   toast.success(msg, { position: toast.POSITION.TOP_LEFT });
+};
+
+export const handleLogout = () => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      showToastSuccess('Goodbye!');
+    })
+    .catch(error => {
+      showToastError(error.message);
+    });
 };
