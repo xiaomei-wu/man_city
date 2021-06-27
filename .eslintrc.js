@@ -63,7 +63,7 @@ module.exports = {
     'unicorn/no-array-reduce': 0,
     'unicorn/no-new-array': 0,
     'unicorn/no-null': 0,
-    'unicorn/prevent-abbreviations': 2,
+    'unicorn/prevent-abbreviations': 0,
     'unicorn/consistent-function-scoping': 0, // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/374#issuecomment-532348080
     'promise/always-return': 0,
     'sonarjs/cognitive-complexity': 1,
@@ -72,6 +72,7 @@ module.exports = {
     'unicorn/number-literal-case': 0,
     'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement'],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'react/jsx-props-no-spreading': 0,
   },
   overrides: [
     {
