@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { firebase } from '../../firebase';
 
-export const SignIn = properties => {
+export const SignIn = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
+
   const submitForm = values => {
     firebase
       .auth()
       .signInWithEmailAndPassword(values.email, values.password)
       .then(() => {
         // show success toast
-        properties.history.push('/dashboard');
+        history.push('/dashboard');
       })
       .catch(error => {
         setLoading(false);
@@ -24,8 +27,8 @@ export const SignIn = properties => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'test@gmail.com',
+      password: 'test123',
     },
     validationSchema: Yup.object({
       email: Yup.string()

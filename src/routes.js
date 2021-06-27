@@ -7,14 +7,13 @@ import { Home } from './components/Home';
 import { SignIn } from './components/SignIn';
 
 export const Routes = ({ user }) => {
-  console.log(user);
   // show the dashboard if user
   return (
     <BrowserRouter>
-      <Header />
+      <Header user={user} />
       <Switch>
-        <Route path="/signin" exact component={SignIn} />
-        <Route path="/" exact component={Home} />
+        <Route path="/signin" exact component={SignIn} user={user} />
+        <Route path="/" exact component={Home} user={user} />
       </Switch>
       <Footer />
     </BrowserRouter>
