@@ -6,7 +6,7 @@ import { AuthGuard } from './HOC/Auth';
 
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { Home } from './components/Home';
+import { Home } from './components/Home/Home';
 import { SignIn } from './components/SignIn';
 import { Dashboard } from './components/Admin/Dashboard';
 
