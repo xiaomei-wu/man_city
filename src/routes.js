@@ -6,7 +6,9 @@ import { Footer } from './components/Footer';
 import { Home } from './components/Home';
 import { SignIn } from './components/SignIn';
 
-export const Routes = () => {
+export const Routes = ({ user }) => {
+  console.log(user);
+  // show the dashboard if user
   return (
     <BrowserRouter>
       <Header />

@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
-
 import { CircularProgress } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { firebase } from '../../firebase';
 
-export const SignIn = () => {
+export const SignIn = properties => {
   const [loading, setLoading] = useState(false);
+  const submitForm = values => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then(() => {
+        // show success toast
+        properties.history.push('/dashboard');
+      })
+      .catch(error => {
+        setLoading(false);
+        alert(error);
+        // show toasts
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -22,9 +36,10 @@ export const SignIn = () => {
     onSubmit: values => {
       /// go to server with field values
       setLoading(true);
-      console.log(values);
+      submitForm(values);
     },
   });
+
   return (
     <div className="conatainer">
       <div className="signin_wrapper" style={{ margin: '100px' }}>
