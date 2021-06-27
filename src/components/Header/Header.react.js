@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
+import { CityLogo } from '../utils/tools';
 
 export const Header = () => (
   <AppBar
@@ -15,7 +16,9 @@ export const Header = () => (
   >
     <Toolbar style={{ display: 'flex' }}>
       <div style={{ flexGrow: 1 }}>
-        <div className="header_logo">logo</div>
+        <div className="header_logo">
+          <CityLogo link linkTo="/" width="70px" height="70px" />
+        </div>
       </div>
 
       <Link to="/the_team">
