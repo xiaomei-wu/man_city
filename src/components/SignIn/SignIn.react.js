@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { firebase } from '../../firebase';
 import { showToastError, showToastSuccess } from '../utils/tools';
 
-export const SignIn = () => {
+export const SignIn = ({ user }) => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
 
@@ -45,7 +45,7 @@ export const SignIn = () => {
     },
   });
 
-  return (
+  return !user ? (
     <div className="conatainer">
       <div className="signin_wrapper" style={{ margin: '100px' }}>
         <form onSubmit={formik.handleSubmit}>
@@ -82,5 +82,7 @@ export const SignIn = () => {
         </form>
       </div>
     </div>
+  ) : (
+    <Redirect to="/dashboard" />
   );
 };
