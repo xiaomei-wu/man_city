@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { firebase } from '../../firebase';
 
-export const SignIn = properties => {
+import { firebase } from '../../firebase';
+import { showToastError, showToastSuccess } from '../utils/tools';
+
+export const SignIn = ({ user }) => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
+
   const submitForm = values => {
     firebase
       .auth()
       .signInWithEmailAndPassword(values.email, values.password)
       .then(() => {
         // show success toast
-        properties.history.push('/dashboard');
+        showToastSuccess('Welcome back!');
+        history.push('/dashboard');
       })
       .catch(error => {
         setLoading(false);
-        alert(error);
-        // show toasts
+        showToastError(error.message);
       });
   };
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: 'test@gmail.com',
+      password: 'test123',
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -40,7 +45,7 @@ export const SignIn = properties => {
     },
   });
 
-  return (
+  return !user ? (
     <div className="conatainer">
       <div className="signin_wrapper" style={{ margin: '100px' }}>
         <form onSubmit={formik.handleSubmit}>
@@ -77,5 +82,7 @@ export const SignIn = properties => {
         </form>
       </div>
     </div>
+  ) : (
+    <Redirect to="/dashboard" />
   );
 };
