@@ -1,20 +1,22 @@
 import React from 'react';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
-import { CityLogo } from '../utils/tools';
+import { Link, useHistory } from 'react-router-dom';
+import { CityLogo, showToastError, showToastSuccess } from '../utils/tools';
 import { firebase } from '../../firebase';
 
 export const Header = ({ user }) => {
+  const history = useHistory();
   const handleLogout = () => {
     firebase
       .auth()
       .signOut()
       .then(() => {
-        alert('signed out');
+        showToastSuccess('Goodbye!');
+        history.push('/');
       })
       .catch(error => {
-        alert('error log out');
+        showToastError(error.message);
       });
   };
   return (

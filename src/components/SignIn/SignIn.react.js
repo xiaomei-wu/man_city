@@ -4,7 +4,9 @@ import { CircularProgress } from '@material-ui/core';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+
 import { firebase } from '../../firebase';
+import { showToastError, showToastSuccess } from '../utils/tools';
 
 export const SignIn = () => {
   const history = useHistory();
@@ -16,12 +18,12 @@ export const SignIn = () => {
       .signInWithEmailAndPassword(values.email, values.password)
       .then(() => {
         // show success toast
+        showToastSuccess('Welcome back!');
         history.push('/dashboard');
       })
       .catch(error => {
         setLoading(false);
-        alert(error);
-        // show toasts
+        showToastError(error.message);
       });
   };
 
