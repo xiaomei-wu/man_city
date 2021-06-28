@@ -41,6 +41,10 @@ export const Text = () => {
           backgroundColor: bck,
           opacity: [0.5],
           timing: { duration: 2000, ease: easePolyOut },
+          events: {
+            start: () => {},
+            end: () => {},
+          },
         }}
         leave={[
           {
