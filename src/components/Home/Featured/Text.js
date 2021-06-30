@@ -1,66 +1,105 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { easePolyOut } from 'd3-ease';
 import { Animate } from 'react-move';
+import featuresPlayer from '../../../Resources/images/featured_player.png';
 
 export const Text = () => {
-  const [show, setShow] = useState(true);
-  const [bck, setBck] = useState('#ffffff');
+  const animateNumber = () => (
+    <Animate
+      show
+      start={{
+        opacity: 0,
+        rotate: 0,
+      }}
+      enter={{
+        opacity: [1],
+        rotate: [360],
+        timing: { duration: 1000, ease: easePolyOut },
+      }}
+    >
+      {({ opacity, rotate }) => (
+        <div
+          className="featured_number"
+          style={{
+            opacity,
+            transform: `translate(260px, 170px) rotateY(${rotate}deg)`,
+          }}
+        >
+          5
+        </div>
+      )}
+    </Animate>
+  );
+
+  const animateFirstText = () => (
+    <Animate
+      show
+      start={{ opacity: 0, x: 503, y: 450 }}
+      enter={{
+        opacity: [1],
+        x: [273],
+        y: [450],
+        timing: { duration: 500, ease: easePolyOut },
+      }}
+    >
+      {({ opacity, x, y }) => (
+        <div
+          className="featured_first"
+          style={{ opacity, transform: `translate(${x}px, ${y}px)` }}
+        >
+          League
+        </div>
+      )}
+    </Animate>
+  );
+
+  const animateSecondText = () => (
+    <Animate
+      show
+      start={{ opacity: 0, x: 503, y: 586 }}
+      enter={{
+        opacity: [1],
+        x: [273],
+        y: [586],
+        timing: { delay: 300, duration: 500, ease: easePolyOut },
+      }}
+    >
+      {({ opacity, x, y }) => (
+        <div
+          className="featured_second"
+          style={{ opacity, transform: `translate(${x}px, ${y}px)` }}
+        >
+          Championships
+        </div>
+      )}
+    </Animate>
+  );
+
+  const animatePlayer = () => (
+    <Animate
+      show
+      start={{ opacity: 0 }}
+      enter={{
+        opacity: [1],
+        timing: { delay: 800, duration: 500, ease: easePolyOut },
+      }}
+    >
+      {({ opacity }) => (
+        <div
+          className="featured_player"
+          style={{
+            opacity,
+            background: `url(${featuresPlayer}) no-repeat`,
+            transform: `translate(550px, 201px)`,
+          }}
+        />
+      )}
+    </Animate>
+  );
   return (
-    <>
-      <button
-        onClick={() => {
-          setBck('#f44336');
-        }}
-      >
-        Update
-      </button>
-      <button
-        onClick={() => {
-          setShow(false);
-        }}
-      >
-        Remove
-      </button>
-      <button
-        onClick={() => {
-          setShow(true);
-        }}
-      >
-        Show
-      </button>
-      <Animate
-        show={show}
-        start={{ backgroundColor: bck, width: 500, height: 500, opacity: 0 }}
-        enter={{
-          width: [100],
-          height: [100],
-          opacity: [1],
-          timing: { duration: 1000, delay: 1000, ease: easePolyOut },
-        }}
-        update={{
-          backgroundColor: bck,
-          opacity: [0.5],
-          timing: { duration: 2000, ease: easePolyOut },
-          events: {
-            start: () => {},
-            end: () => {},
-          },
-        }}
-        leave={[
-          {
-            width: [1000],
-            timing: { duration: 500, ease: easePolyOut },
-          },
-          {
-            opacity: [0],
-            timing: { delay: 2000, duration: 3000, ease: easePolyOut },
-          },
-        ]}
-      >
-        {({ width, height, backgroundColor, opacity }) => (
-          <div style={{ backgroundColor, opacity, height, width }}>hello</div>
-        )}
-      </Animate>
-    </>
+    <div className="featured_text">
+      {animatePlayer()} {animateNumber()} {animateFirstText()}
+      {animateSecondText()}
+    </div>
   );
 };
